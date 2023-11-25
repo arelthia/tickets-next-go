@@ -68,27 +68,72 @@ func (dataSource *DbRunner) GetTicket(id int) (model.Ticket, error) {
 }
 
 func (dataSource *DbRunner) CreateTicket(t model.Ticket) (int64, error) {
-	result, err := dataSource.db.Exec("INSERT INTO tickets (first_name, last_name, email, issue, priority) VALUES ($1, $2, $3, $4, $5)",
-		t.FirstName, t.LastName, t.Email, t.Issue, t.Priority)
+
+	query := `
+        INSERT INTO tickets (first_name, last_name, email, issue, priority) VALUES ($1, $2, $3, $4, $5)
+    `
+	stmt, err := dataSource.db.Prepare(query)
+
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected()
+	defer stmt.Close()
+
+	result, err := stmt.Exec(t.FirstName, t.LastName, t.Email, t.Issue, t.Priority)
+	if err != nil {
+		return 0, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return rowsAffected, nil
 }
 
 func (dataSource *DbRunner) UpdateTicket(id int, t model.Ticket) (int64, error) {
-	result, err := dataSource.db.Exec("UPDATE tickets SET first_name = $1, last_name = $2, email = $3, issue = $4, priority = $5 WHERE id = $6",
-		t.FirstName, t.LastName, t.Email, t.Issue, t.Priority, id)
+	query := `
+        UPDATE tickets SET first_name = $1, last_name = $2, email = $3, issue = $4, priority = $5 WHERE id = $6
+    `
+	stmt, err := dataSource.db.Prepare(query)
+
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected()
+	defer stmt.Close()
+
+	result, err := stmt.Exec(t.FirstName, t.LastName, t.Email, t.Issue, t.Priority)
+	if err != nil {
+		return 0, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return rowsAffected, nil
 }
 
 func (dataSource *DbRunner) DeleteTicket(id int) (int64, error) {
-	result, err := dataSource.db.Exec("DELETE FROM tickets WHERE id = $1", id)
+	query := `DELETE FROM tickets WHERE id = $1`
+	stmt, err := dataSource.db.Prepare(query)
+
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected()
+	defer stmt.Close()
+
+	result, err := stmt.Exec(id)
+	if err != nil {
+		return 0, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	return rowsAffected, nil
 }
