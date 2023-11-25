@@ -103,7 +103,7 @@ func (dataSource *DbRunner) UpdateTicket(id int, t model.Ticket) (int64, error) 
 	}
 	defer stmt.Close()
 
-	result, err := stmt.Exec(t.FirstName, t.LastName, t.Email, t.Issue, t.Priority)
+	result, err := stmt.Exec(t.FirstName, t.LastName, t.Email, t.Issue, t.Priority, id)
 	if err != nil {
 		return 0, err
 	}
