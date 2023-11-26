@@ -1,22 +1,15 @@
-import Footing from "@/components/Footing";
-import Heading from "@/components/Heading";
-import Main from "@/components/Main";
-import "@/app/app.css";
+
 import TicketList from "@/components/TicketList";
 
 
-
-function App() {
+function DashBoard() {
   return (
-    <div className="wrapper">
-      <Heading title="Support Dashboard" />
-      <Main>
-        <TicketList />
-      </Main>
-      <Footing />
-    </div>
+
+
+    <TicketList />
+
 
   );
 }
 
-export default App;
+export default DashBoard;

@@ -23,15 +23,15 @@ const TicketList = () => {
         }
 
         doFetch();
-    }, []);
+    }, [tickets]);
 
     return (
         <div>
             <h2 className="page-title">Current Tickets</h2>
             <table className="table table-bordered">
                 <thead>
-                    <tr>
-                        <th scope="col">Name</th>
+                    <tr style={{ textAlign: 'left' }}>
+                        <th scope="col" >Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Issue</th>
                         <th scope="col">Priority</th>
