@@ -6,7 +6,7 @@ export enum Priority {
 
 
 export type Ticket = {
-  id: string,
+  id?: string,
   firstName: string,
   lastName: string,
   email: string,
@@ -16,6 +16,7 @@ export type Ticket = {
 
 
 export type TicketItemProps = {
-  key: number,
+  key?: number,
   ticket: Ticket
 };
+
