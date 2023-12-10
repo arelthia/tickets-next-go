@@ -10,7 +10,6 @@ func Tickets(r chi.Router) {
 
 	r.Route("/api/v1/tickets", func(r chi.Router) {
 		// set up cors headers
-		r.Use(handler.Cors)
 		r.Get("/", handler.GetTickets)
 		r.Get("/{id}", handler.GetTicket)
 		r.Post("/", handler.CreateTicket)
